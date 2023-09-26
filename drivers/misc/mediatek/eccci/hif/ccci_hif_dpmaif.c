@@ -107,14 +107,14 @@ TRACE_EVENT(ccci_skb_rx,
 #define DPMA_DRB_LOG(fmt, args...) \
 do { \
 	ccci_dump_write(0, CCCI_DUMP_DPMA_DRB, 0, fmt, ##args); \
-	pr_info("[ccci]" fmt, ##args); \
+	pr_debug("[ccci]" fmt, ##args); \
 } while (0)
 
 #define DPMA_DRB_LOG_TIME(fmt, args...) \
 do { \
 	ccci_dump_write(0, CCCI_DUMP_DPMA_DRB|CCCI_DUMP_TIME_FLAG, \
 			0, fmt, ##args); \
-	pr_info("[ccci]" fmt, ##args); \
+	pr_debug("[ccci]" fmt, ##args); \
 } while (0)
 
 #define DPMA_DRB_DATA_INFO(fmt, args...) \
@@ -462,7 +462,7 @@ static void dump_drb_queue_data(unsigned int qno)
 	i = 0;
 	while (i < count) {
 		DPMA_DRB_DATA_INFO("%08X(%04d): %016llX %016llX %016llX %016llX %016llX %016llX %016llX %016llX\n",
-			(u32)data_64ptr, (i * 8),
+			(long)data_64ptr, (i * 8),
 			*data_64ptr, *(data_64ptr + 1),
 			*(data_64ptr + 2), *(data_64ptr + 3),
 			*(data_64ptr + 4), *(data_64ptr + 5),
@@ -475,7 +475,7 @@ static void dump_drb_queue_data(unsigned int qno)
 	if (mod64 > 0) {
 		data_8ptr = (u8 *)data_64ptr;
 
-		DPMA_DRB_DATA_INFO("%08X(%04d):", (u32)data_8ptr, count * 8);
+		DPMA_DRB_DATA_INFO("%08X(%04d):", (long)data_8ptr, count * 8);
 
 		for (i = 0; i < mod64; i++) {
 			if ((i % 8) == 0)
