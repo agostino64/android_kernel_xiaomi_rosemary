@@ -32,6 +32,9 @@
 #include <linux/notifier.h>
 #include <linux/fb.h>
 #endif
+#ifdef CONFIG_TOUCHSCREEN_COMMON
+#include <linux/input/tp_common.h>
+#endif
 
 #include "goodix_ts_core.h"
 
